@@ -159,23 +159,19 @@ jobs:
         run: pnpm --filter ${{ matrix.pkg }} run lint
 
       # --- Stage 2: unit (+ property-based, >=100 iterations — Req 30.3) ---
-      # Exclude E2E and integration specs so this stage is purely unit/property.
+      # Runs the service's dedicated unit script, which bakes in the
+      # include/exclude patterns (excludes E2E and integration specs) so the
+      # patterns are not fragile `-- <args>` passthrough (broken under pnpm v10).
       - name: Unit tests
-        run: >-
-          pnpm --filter ${{ matrix.pkg }} run test --
-          --testPathIgnorePatterns "/node_modules/" "${{ matrix.e2e_pattern }}" "integration"
+        run: pnpm --filter ${{ matrix.pkg }} run test:unit
 
       # --- Stage 3: integration (Testcontainers-backed; self-provisions infra) ---
       - name: Integration tests
-        run: >-
-          pnpm --filter ${{ matrix.pkg }} run test --
-          --testPathPattern "integration" --passWithNoTests
+        run: pnpm --filter ${{ matrix.pkg }} run test:integration
 
       # --- Stage 4: E2E (in-process Supertest bootstrap specs) ---
       - name: E2E tests
-        run: >-
-          pnpm --filter ${{ matrix.pkg }} run test --
-          --testPathPattern "${{ matrix.e2e_pattern }}" --passWithNoTests
+        run: pnpm --filter ${{ matrix.pkg }} run test:e2e
 
       # --- Stage 5: docker build ---
       # Context is the monorepo root so the workspace + @pawaac/shared-types

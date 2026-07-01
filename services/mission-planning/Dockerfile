@@ -32,7 +32,7 @@ RUN pnpm --filter @pawaac/shared-types build \
 
 # Produce a self-contained production deployment (prunes dev deps, injects the
 # built workspace dependency).
-RUN pnpm --filter @pawaac/mission-planning deploy --prod /app
+RUN pnpm --filter @pawaac/mission-planning deploy --legacy --prod /app
 
 # ----- Runtime: minimal production image --------------------------------------
 FROM base AS runtime

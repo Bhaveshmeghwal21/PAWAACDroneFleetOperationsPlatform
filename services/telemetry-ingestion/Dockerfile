@@ -37,7 +37,7 @@ RUN pnpm --filter @pawaac/shared-types build \
 
 # Produce a self-contained, production-only deployment (bundles the workspace
 # dependency @pawaac/shared-types into a flat node_modules).
-RUN pnpm --filter @pawaac/telemetry-ingestion deploy --prod /app/deploy
+RUN pnpm --filter @pawaac/telemetry-ingestion deploy --legacy --prod /app/deploy
 
 # ---- Runtime: minimal production image ---------------------------------------
 FROM base AS runtime

@@ -28,7 +28,7 @@ RUN pnpm --filter @pawaac/shared-types run build \
   && pnpm --filter @pawaac/api-gateway run build
 
 # Prune dev dependencies for a lean runtime node_modules.
-RUN pnpm --filter @pawaac/api-gateway --prod deploy /app
+RUN pnpm --filter @pawaac/api-gateway --prod deploy --legacy /app
 
 # ---- Stage 2: runtime -----------------------------------------------------
 FROM node:20-alpine AS runtime
