@@ -178,6 +178,14 @@ describeIntegration('Alert & Notification against real Postgres + Redis (integra
   beforeEach(async () => {
     await redis.flushall();
     jest.clearAllMocks();
+    // `jest.clearAllMocks()` resets call history but NOT mock *implementations*,
+    // so a test that re-programs a transport to fail (e.g.
+    // `openWaPost.mockRejectedValue(...)` in the fallback test) would otherwise
+    // leak that failing behavior into subsequent tests and trigger spurious
+    // in-app fallbacks. Re-arm every stubbed transport to its default
+    // happy-path behavior here so each test starts fully isolated.
+    openWaPost?.mockResolvedValue({ status: 200, data: { success: true } });
+    inAppEmit?.mockReturnValue(undefined);
   });
 
   // A fresh, unique zone uuid per call so zone-scoped tests don't collide.
