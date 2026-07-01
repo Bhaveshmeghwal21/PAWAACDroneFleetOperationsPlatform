@@ -1,0 +1,27 @@
+{
+  "name": "@pawaac/seed",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Deterministic seed script (Requirement 29): generates and applies a fixed dataset of 5 drones, 3 missions, 72h of telemetry, 200 detections and 15 alerts across every service datastore.",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint .",
+    "seed": "tsx src/main.ts",
+    "seed:dry-run": "tsx src/main.ts --dry-run",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@pawaac/shared-types": "workspace:*",
+    "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/pg": "^8.11.10",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "vitest": "^2.1.8"
+  }
+}

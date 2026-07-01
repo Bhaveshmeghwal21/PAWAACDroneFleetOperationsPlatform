@@ -1,0 +1,8 @@
+node_modules
+dist
+coverage
+*.log
+.git
+test
+**/*.spec.ts
+**/*.e2e-spec.ts

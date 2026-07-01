@@ -1,0 +1,16 @@
+# Keep Docker build contexts lean and reproducible: never ship host-installed
+# dependencies, build output, local env files, or VCS metadata into an image.
+**/node_modules
+**/dist
+**/build
+**/.next
+**/coverage
+**/.turbo
+**/*.tsbuildinfo
+**/.git
+.git
+**/.env
+.env
+**/npm-debug.log*
+**/pnpm-debug.log*
+.DS_Store

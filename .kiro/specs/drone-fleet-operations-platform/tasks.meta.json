@@ -1,0 +1,1332 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Initialize monorepo workspace and tooling": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942801
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848949730
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782849134869
+      }
+    ],
+    "1.2 Implement the `@pawaac/shared-types` package": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942807
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782849138442
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782849529182
+      }
+    ],
+    "1.4 Author Docker Compose for all services and datastores": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942812
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782849139083
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782849530042
+      }
+    ],
+    "2. Checkpoint - shared foundation": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942817
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782849568193
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782849573698
+      }
+    ],
+    "3.1 Bootstrap service and install dependencies": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942821
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782849575674
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782851135420
+      }
+    ],
+    "3.2 Define entities and versioned migrations": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942826
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782851144191
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782851150289
+      }
+    ],
+    "3.3 Implement Drone CRUD with validation and optimistic locking": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942831
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782851145218
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782851152638
+      }
+    ],
+    "3.5 Implement component lifecycle and maintenance evaluation": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942836
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782851146189
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782851153290
+      }
+    ],
+    "3.7 Implement WebSocket status-change and maintenance-due events": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942840
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782851146620
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782851154291
+      }
+    ],
+    "4. Checkpoint - Fleet Registry green-before-proceed": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942846
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782851172588
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782851179772
+      }
+    ],
+    "5.1 Bootstrap service and install dependencies": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942850
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782849576687
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782851154976
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782851172778
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782851884035
+      }
+    ],
+    "5.2 Define mission/geofence entities and migrations": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942854
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782852249317
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782852703268
+      }
+    ],
+    "5.3 Implement waypoint validation and versioned mission authoring": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942862
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782852719516
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782853635522
+      }
+    ],
+    "5.5 Implement geofence definition and conflict detection": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942866
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782853644701
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782854293957
+      }
+    ],
+    "5.7 Implement mission template library": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942871
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782854302204
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782854896200
+      }
+    ],
+    "5.9 Implement MAVLink export (JSON + binary)": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942877
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782854906113
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782855468637
+      }
+    ],
+    "6. Checkpoint - Mission Planning green-before-proceed": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942883
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782855503677
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782855510081
+      }
+    ],
+    "7.1 Bootstrap service and install dependencies": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942889
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782849577690
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782851135017
+      }
+    ],
+    "7.2 Define TimescaleDB hypertable and migrations": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942893
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782852251238
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782852705256
+      }
+    ],
+    "7.3 Implement WS ingest and MAVLink parsing/persistence": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942897
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782852721523
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782853636506
+      }
+    ],
+    "7.5 Implement real-time anomaly detection": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942902
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782853647477
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782854294260
+      }
+    ],
+    "7.7 Implement historical query with downsampling": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942906
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782854304192
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782854893402
+      }
+    ],
+    "7.10 Implement load test harness for sustained ingest": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942910
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782854906742
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782855471408
+      }
+    ],
+    "8. Checkpoint - Telemetry Ingestion green-before-proceed": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942915
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782855504642
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782855511092
+      }
+    ],
+    "9.1 Bootstrap service and install dependencies": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942919
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782849578692
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782851134014
+      }
+    ],
+    "9.2 Define detection/track models and migrations": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942923
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782852253351
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782852706278
+      }
+    ],
+    "9.3 Implement detection ingest with validation and idempotency": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942929
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782852722520
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782853637510
+      }
+    ],
+    "9.4 Implement OBB transforms and track stitching": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942933
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782853647850
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782854295268
+      }
+    ],
+    "9.6 Implement scene event classification": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942937
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782854305202
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782854892354
+      }
+    ],
+    "9.8 Implement detection query API": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942944
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782854902489
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782855466597
+      }
+    ],
+    "10. Checkpoint - Vision AI green-before-proceed": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942948
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782855505437
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782855513085
+      }
+    ],
+    "11.1 Bootstrap service and install dependencies": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942952
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782849579451
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782851132041
+      }
+    ],
+    "11.2 Define rule/alert models and migrations": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942957
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782852253555
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782852706638
+      }
+    ],
+    "11.3 Implement configurable rule engine": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942962
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782852723599
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782853639435
+      }
+    ],
+    "11.5 Implement multi-channel dispatch": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942966
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782853648286
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782854296266
+      }
+    ],
+    "11.7 Implement acknowledgement and escalation": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942971
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782854306323
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782854896126
+      }
+    ],
+    "11.9 Implement history and analytics": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942975
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782854903530
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782855467608
+      }
+    ],
+    "12. Checkpoint - Alert & Notification green-before-proceed": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942979
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782855505897
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782855514086
+      }
+    ],
+    "13.1 Bootstrap service and install dependencies": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942984
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782851175679
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782851885038
+      }
+    ],
+    "13.2 Implement authentication and RBAC authorization": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942988
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782852724286
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782853639545
+      }
+    ],
+    "13.4 Implement rate limiting, logging, and tracing": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942993
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782853648666
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782854297068
+      }
+    ],
+    "13.6 Implement routing and merged OpenAPI": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848942998
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782854306823
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782854895865
+      }
+    ],
+    "14. Checkpoint - API Gateway green-before-proceed": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848943002
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782859644410
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782859749028
+      }
+    ],
+    "15.1 Bootstrap dashboard and install dependencies": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848943007
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782851176083
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782851885122
+      }
+    ],
+    "15.2 Implement real-time fleet map": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848943012
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782854907034
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782855471930
+      }
+    ],
+    "15.3 Implement drag-and-drop mission planner": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848943016
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782855515097
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782855956510
+      }
+    ],
+    "15.4 Implement live telemetry panels": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848943020
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782855959428
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782856302626
+      }
+    ],
+    "15.5 Implement alert feed with acknowledge workflow": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848943026
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782855515704
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782855959042
+      }
+    ],
+    "15.6 Implement detection replay timeline": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848943030
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782855959539
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782856303414
+      }
+    ],
+    "16. Checkpoint - Ops Dashboard green-before-proceed": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848943034
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782856310458
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782856315348
+      }
+    ],
+    "17.1 Implement deterministic seed script": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848943039
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782856316347
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782856887962
+      }
+    ],
+    "17.3 Implement GitHub Actions CI pipeline": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848943043
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782856318850
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782856891203
+      }
+    ],
+    "17.4 Write per-service and root README documentation": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848943047
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782856319154
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782856891651
+      }
+    ],
+    "17.5 Produce BENCHMARKS.md from the telemetry load test": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848943052
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782859452560
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782859614728
+      }
+    ],
+    "18. Final checkpoint - full platform green": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782848943056
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782859752601
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782860128584
+      }
+    ],
+    "1. Scaffold monorepo, shared types package, and orchestration": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782849530047
+      }
+    ],
+    "3. Service 1 — Fleet Registry (NestJS + Postgres)": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782851154296
+      }
+    ],
+    "1.3 Write unit tests for shared-types guards/validators": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782851927334
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782852242496
+      }
+    ],
+    "13. Service 6 — API Gateway (NestJS)": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782854895869
+      }
+    ],
+    "9. Service 4 — Vision AI Results (FastAPI + Postgres)": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782855466602
+      }
+    ],
+    "11. Service 5 — Alert & Notification (NestJS + Redis + Postgres)": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782855467614
+      }
+    ],
+    "5. Service 2 — Mission Planning (NestJS + Postgres/PostGIS)": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782855468645
+      }
+    ],
+    "7. Service 3 — Telemetry Ingestion (Node + TimescaleDB)": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782855471413
+      }
+    ],
+    "15. Service 7 — Ops Dashboard (Next.js + TS + Tailwind + Leaflet)": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782856303418
+      }
+    ],
+    "3.4 Write property tests for Drone CRUD invariants": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782856937462
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857256203
+      }
+    ],
+    "5.4 Write property tests for validation and versioning": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782856939263
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857257182
+      }
+    ],
+    "7.4 Write property tests for parsing and persistence invariants": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782856940276
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857258220
+      }
+    ],
+    "9.5 Write Hypothesis property tests for ingest and stitching": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782856941276
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857259222
+      }
+    ],
+    "11.4 Write property tests for rule engine": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782856942024
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857260216
+      }
+    ],
+    "17.2 Write a test asserting seed determinism": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857261235
+      }
+    ],
+    "3.6 Write property tests for lifecycle and maintenance": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857265847
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857615110
+      }
+    ],
+    "5.6 Write property tests for conflict detection": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857267859
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857618170
+      }
+    ],
+    "7.6 Write property tests for anomaly detection": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857268833
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857617126
+      }
+    ],
+    "9.7 Write Hypothesis property tests for scene classification": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857269853
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857614106
+      }
+    ],
+    "13.3 Write property tests for auth/RBAC": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857270651
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857617073
+      }
+    ],
+    "3.8 Write property + unit tests for event fidelity": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857622469
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857976033
+      }
+    ],
+    "5.8 Write property test for template substitution": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857623459
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857973675
+      }
+    ],
+    "7.8 Write property tests for historical query": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857624454
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857975736
+      }
+    ],
+    "11.6 Write property + unit tests for dispatch": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857626454
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857974779
+      }
+    ],
+    "13.5 Write property tests for rate limiting and tracing": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857626530
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857972444
+      }
+    ],
+    "5.10 Write property tests for MAVLink export": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857983189
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782858750932
+      }
+    ],
+    "11.8 Write property tests for escalation workflow": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857984188
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782858748914
+      }
+    ],
+    "9.9 Write Hypothesis property test + integration tests for query": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857985189
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782858749940
+      }
+    ],
+    "13.7 Write property + integration tests for routing": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857987391
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782858752731
+      }
+    ],
+    "3.9 Write integration tests against real Postgres": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782857987612
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782858751950
+      }
+    ],
+    "3.10 Write E2E WebSocket test for status events": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782858769706
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782859443260
+      }
+    ],
+    "5.11 Write integration tests against Postgres/PostGIS": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782858769734
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782859447010
+      }
+    ],
+    "7.9 Write integration tests against TimescaleDB": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782858771704
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782859444264
+      }
+    ],
+    "11.10 Write property + integration tests for analytics and channels": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782858772705
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782859442257
+      }
+    ],
+    "15.7 Write Playwright E2E tests against a seeded environment": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782858773282
+      },
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782859446759
+      }
+    ],
+    "17. Cross-cutting finalization": [
+      {
+        "executionId": "356c300b-614e-406c-a972-1cc64adb98e0",
+        "chatSessionId": "7dbdb458-5f2d-4125-8728-5f2e2d7be2ec",
+        "timestamp": 1782859614732
+      }
+    ]
+  }
+}

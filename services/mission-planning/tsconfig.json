@@ -1,0 +1,17 @@
+{
+  // Extends the monorepo base, switching the module system to CommonJS so the
+  // NestJS runtime, its decorators (reflect-metadata) and ts-jest behave exactly
+  // as the framework expects. Cross-service DTOs from `@pawaac/shared-types` are
+  // consumed via `import type` only, so no ESM/CJS interop is required at runtime.
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "rootDir": ".",
+    "baseUrl": ".",
+    "types": ["node", "jest"]
+  },
+  "include": ["src/**/*.ts", "test/**/*.ts"],
+  "exclude": ["dist", "node_modules"]
+}

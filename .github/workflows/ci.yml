@@ -1,0 +1,318 @@
+# =============================================================================
+# PAWAAC Drone Fleet Operations Platform — Continuous Integration (Req 30)
+# =============================================================================
+# This workflow implements the platform CI quality gate (Requirement 30):
+#
+#   30.1  For EACH service, run the stages in this exact order:
+#             lint  ->  unit  ->  integration  ->  E2E  ->  docker build
+#   30.2  If any stage fails, fail the pipeline and DO NOT run the subsequent
+#         stages for that service.
+#   30.3  Property-based tests run a minimum of 100 iterations per property
+#         (fast-check / Hypothesis). The test suites themselves enforce the
+#         100-iteration floor and reference their design property (P#); CI's
+#         job is simply to execute them.
+#
+# HOW THE ORDERING + FAIL-FAST GUARANTEE IS ACHIEVED
+# --------------------------------------------------
+# Each service is a single job whose stages are *separate, sequentially listed
+# steps*. GitHub Actions runs the steps of a job in order and, by default,
+# aborts the job at the first step that exits non-zero (no `continue-on-error`
+# is set anywhere below). That gives us, for free and per service:
+#   - strict stage ordering (lint then unit then integration then E2E then docker), and
+#   - fail-fast: a red earlier stage stops every later stage for that service.
+# `strategy.fail-fast: false` on the matrix keeps the services INDEPENDENT, so
+# one service going red does not cancel the others' pipelines.
+# =============================================================================
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+# Only the latest run per ref needs to be green; cancel superseded runs.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: "20"
+  PYTHON_VERSION: "3.11"
+
+jobs:
+  # ===========================================================================
+  # Foundation: @pawaac/shared-types
+  # ---------------------------------------------------------------------------
+  # The shared DTO/event package is the single source of truth imported by every
+  # Node service. It is linted, built and unit-tested first; the service jobs
+  # depend on this job so they never run against a broken shared contract.
+  # (It ships no container image, so it has no integration/E2E/docker stages.)
+  # ===========================================================================
+  shared-types:
+    name: shared-types (lint - unit)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      # --- Stage: lint ---
+      - name: Lint
+        run: pnpm --filter @pawaac/shared-types run lint
+
+      # --- Stage: build (produces dist/ consumed by every service) ---
+      - name: Build
+        run: pnpm --filter @pawaac/shared-types run build
+
+      # --- Stage: unit (includes property-based tests, >=100 iters — Req 30.3) ---
+      - name: Unit tests
+        run: pnpm --filter @pawaac/shared-types run test
+
+  # ===========================================================================
+  # Node backend services (matrix): Fleet Registry, Mission Planning,
+  # Telemetry Ingestion, Alert & Notification, API Gateway.
+  # ---------------------------------------------------------------------------
+  # Each matrix leg runs the full ordered gate for ONE service. `fail-fast:
+  # false` keeps the five services independent of one another.
+  #
+  # Stage -> command mapping (driven off each service's existing `test` script
+  # so per-service Jest config/env — e.g. Telemetry's ESM NODE_OPTIONS — is
+  # preserved; extra Jest args are forwarded after `--`):
+  #   lint        : pnpm run lint
+  #   unit        : Jest, excluding *e2e* and *integration* specs
+  #                 (unit + property/fast-check specs; >=100 iters per Req 30.3)
+  #   integration : Jest, only *integration* specs. These provision their own
+  #                 Postgres/TimescaleDB/Redis via Testcontainers, which drives
+  #                 the Docker daemon that is preinstalled on ubuntu-latest — so
+  #                 no GitHub `services:` containers are required. `--passWithNoTests`
+  #                 keeps the (correctly ordered) stage green until a service's
+  #                 Testcontainers integration specs land.
+  #   E2E         : Jest, only the in-process Supertest *e2e* specs.
+  #   docker build: build the service image from its Dockerfile (context = repo
+  #                 root, matching docker-compose.yml).
+  # ===========================================================================
+  node-services:
+    name: ${{ matrix.name }}
+    needs: shared-types
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: fleet-registry
+            pkg: "@pawaac/fleet-registry"
+            dir: fleet-registry
+            e2e_pattern: '\.e2e\.spec\.ts$'
+          - name: mission-planning
+            pkg: "@pawaac/mission-planning"
+            dir: mission-planning
+            e2e_pattern: '\.e2e\.spec\.ts$'
+          - name: telemetry-ingestion
+            pkg: "@pawaac/telemetry-ingestion"
+            dir: telemetry-ingestion
+            e2e_pattern: '\.e2e\.(spec|test)\.ts$'
+          - name: alert-notification
+            pkg: "@pawaac/alert-notification"
+            dir: alert-notification
+            e2e_pattern: '\.e2e-spec\.ts$'
+          - name: api-gateway
+            pkg: "@pawaac/api-gateway"
+            dir: api-gateway
+            e2e_pattern: '\.e2e-spec\.ts$'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      # shared-types must be built so its dist/ resolves at test runtime.
+      - name: Build shared-types
+        run: pnpm --filter @pawaac/shared-types run build
+
+      # --- Stage 1: lint ---
+      - name: Lint
+        run: pnpm --filter ${{ matrix.pkg }} run lint
+
+      # --- Stage 2: unit (+ property-based, >=100 iterations — Req 30.3) ---
+      # Exclude E2E and integration specs so this stage is purely unit/property.
+      - name: Unit tests
+        run: >-
+          pnpm --filter ${{ matrix.pkg }} run test --
+          --testPathIgnorePatterns "/node_modules/" "${{ matrix.e2e_pattern }}" "integration"
+
+      # --- Stage 3: integration (Testcontainers-backed; self-provisions infra) ---
+      - name: Integration tests
+        run: >-
+          pnpm --filter ${{ matrix.pkg }} run test --
+          --testPathPattern "integration" --passWithNoTests
+
+      # --- Stage 4: E2E (in-process Supertest bootstrap specs) ---
+      - name: E2E tests
+        run: >-
+          pnpm --filter ${{ matrix.pkg }} run test --
+          --testPathPattern "${{ matrix.e2e_pattern }}" --passWithNoTests
+
+      # --- Stage 5: docker build ---
+      # Context is the monorepo root so the workspace + @pawaac/shared-types
+      # resolve inside the multi-stage build (see docker-compose.yml).
+      - name: Docker build
+        run: |
+          docker build \
+            -f services/${{ matrix.dir }}/Dockerfile \
+            -t pawaac/${{ matrix.dir }}:ci \
+            .
+
+  # ===========================================================================
+  # Service 7 — Ops Dashboard (Next.js): lint -> unit -> integration -> E2E -> docker
+  # ---------------------------------------------------------------------------
+  # Distinct from the Node backends because it uses Vitest (unit) and Playwright
+  # (E2E) rather than Jest/Supertest, and a Next.js standalone Docker build.
+  # ===========================================================================
+  ops-dashboard:
+    name: ops-dashboard
+    needs: shared-types
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build shared-types
+        run: pnpm --filter @pawaac/shared-types run build
+
+      # --- Stage 1: lint ---
+      - name: Lint
+        run: pnpm --filter @pawaac/ops-dashboard run lint
+
+      # --- Stage 2: unit (Vitest; component/data-lib specs) ---
+      - name: Unit tests
+        run: pnpm --filter @pawaac/ops-dashboard run test
+
+      # --- Stage 3: integration ---
+      # The dashboard owns no datastore; its data-access layer is exercised by
+      # the Vitest unit stage above and by the Playwright E2E stage below against
+      # the seeded Docker Compose stack. No standalone integration suite exists,
+      # so this correctly-ordered stage is a documented no-op placeholder.
+      - name: Integration tests
+        run: echo "No standalone integration suite for ops-dashboard; covered by unit (Vitest) + E2E (Playwright)."
+
+      # --- Stage 4: E2E (Playwright) ---
+      # Runs the Playwright suite (smoke today; full operator journeys land in
+      # task 15.7). Point it at a running stack with PLAYWRIGHT_BASE_URL when the
+      # seeded Docker Compose environment is available.
+      - name: Install Playwright browser
+        run: pnpm --filter @pawaac/ops-dashboard exec playwright install --with-deps chromium
+
+      - name: E2E tests
+        run: pnpm --filter @pawaac/ops-dashboard run test:e2e
+
+      # --- Stage 5: docker build (Next.js standalone; context = repo root) ---
+      - name: Docker build
+        run: |
+          docker build \
+            -f services/ops-dashboard/Dockerfile \
+            -t pawaac/ops-dashboard:ci \
+            .
+
+  # ===========================================================================
+  # Service 4 — Vision AI (Python / FastAPI): lint -> unit -> integration -> E2E -> docker
+  # ---------------------------------------------------------------------------
+  # The Python service uses ruff (lint) and pytest + Hypothesis (tests). A
+  # Postgres service container is provisioned for the integration stage; the
+  # current persistence specs bind to an ephemeral SQLite via test fixtures, and
+  # the container is wired and ready for the forthcoming Postgres-backed specs.
+  # ===========================================================================
+  vision-ai:
+    name: vision-ai
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: services/vision-ai
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: vision_ai
+          POSTGRES_PASSWORD: vision_ai
+          POSTGRES_DB: vision_ai
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U vision_ai -d vision_ai"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: services/vision-ai/pyproject.toml
+
+      - name: Install dependencies (with dev extras)
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      # --- Stage 1: lint ---
+      - name: Lint (ruff)
+        run: ruff check .
+
+      # --- Stage 2: unit (pure logic + Hypothesis property tests, >=100 iters — Req 30.3) ---
+      - name: Unit tests
+        run: pytest -q tests/test_scene.py tests/test_tracking.py
+
+      # --- Stage 3: integration (DB-backed persistence/migration specs) ---
+      # DATABASE_URL points at the Postgres service container above; the current
+      # specs use an ephemeral SQLite via fixtures, so they pass without it, and
+      # the container is available for Postgres-backed integration specs.
+      - name: Integration tests
+        env:
+          DATABASE_URL: postgresql+psycopg://vision_ai:vision_ai@localhost:5432/vision_ai
+        run: pytest -q tests/test_ingest.py tests/test_query.py tests/test_models_migration.py
+
+      # --- Stage 4: E2E (full FastAPI app via TestClient) ---
+      - name: E2E tests
+        run: pytest -q tests/test_health.py
+
+      # --- Stage 5: docker build (context = ./services/vision-ai) ---
+      - name: Docker build
+        run: docker build -f Dockerfile -t pawaac/vision-ai:ci .

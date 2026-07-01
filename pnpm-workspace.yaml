@@ -1,0 +1,7 @@
+# pnpm workspace definition for the PAWAAC Drone Fleet Operations Platform.
+# Each of the seven services lives under services/*, and shared libraries
+# (e.g. the @pawaac/shared-types single source of truth) live under packages/*.
+packages:
+  - 'packages/*'
+  - 'services/*'
+  - 'tools/*'

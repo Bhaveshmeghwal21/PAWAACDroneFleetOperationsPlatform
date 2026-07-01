@@ -1,0 +1,10 @@
+node_modules
+dist
+build
+coverage
+.next
+pnpm-lock.yaml
+**/migrations/**
+
+# Generated spec / planning artifacts (managed by the spec workflow)
+.kiro

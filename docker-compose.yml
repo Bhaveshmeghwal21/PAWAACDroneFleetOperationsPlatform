@@ -1,0 +1,451 @@
+# =============================================================================
+# PAWAAC Drone Fleet Operations Platform — Local Orchestration (Docker Compose)
+# =============================================================================
+# One-command local bring-up of all 7 services plus their datastores
+# (Requirement 26.1). Every service and datastore declares a healthcheck and
+# uses `depends_on: { condition: service_healthy }` so that dependents never
+# start against an unhealthy dependency (Requirement 26.2).
+#
+# Fail-fast bring-up (Requirement 26.3): start the stack with
+#     docker compose up --build --wait --abort-on-container-failure
+# `--wait` blocks until every container is healthy and `--abort-on-container-failure`
+# tears the whole stack down if ANY service or datastore fails to become healthy,
+# rather than leaving a partial environment running. `restart: "no"` (the default,
+# set explicitly below) ensures a crashed component is not silently revived and
+# masking the failure.
+#
+# Database-per-service (Requirement 26.4 / 28): each backend service owns its own
+# datastore — a dedicated container, a dedicated database, and a dedicated scoped
+# user whose reach is limited to that one datastore. Mission Planning runs on a
+# PostGIS-enabled Postgres; Telemetry Ingestion runs on TimescaleDB; Alert and the
+# Gateway use Redis (logically separated by Redis DB index). No service can reach
+# another service's datastore.
+#
+# Secrets / config (Requirement 31.3): every credential and tunable is supplied
+# exclusively through environment variables. Copy `.env.example` to `.env` and
+# fill in real values; `.env` is git-ignored and MUST NOT be committed.
+#
+# Build contexts: the per-service Dockerfiles are authored by the per-service
+# bootstrap tasks (3.1, 5.1, 7.1, 9.1, 11.1, 13.1, 15.1). The Node services build
+# from the monorepo root so they can resolve the `@pawaac/shared-types` workspace
+# package and the pnpm lockfile; the Python Vision AI service builds from its own
+# directory. These build stanzas are valid Compose syntax today and become
+# runnable once the referenced Dockerfiles exist.
+# =============================================================================
+
+name: pawaac
+
+# ----------------------------------------------------------------------------
+# Reusable fragments (YAML anchors)
+# ----------------------------------------------------------------------------
+x-restart-policy: &restart-policy
+  # Do not auto-restart: a failed component should surface the failure so that
+  # `--abort-on-container-failure` can tear the stack down (Requirement 26.3).
+  restart: "no"
+
+x-postgres-healthcheck: &postgres-healthcheck
+  interval: 10s
+  timeout: 5s
+  retries: 5
+  start_period: 20s
+
+services:
+  # ==========================================================================
+  # DATASTORES (one private datastore per backend service)
+  # ==========================================================================
+
+  # --- Fleet Registry datastore: Postgres -----------------------------------
+  postgres-fleet:
+    image: postgres:16-alpine
+    <<: *restart-policy
+    environment:
+      POSTGRES_USER: ${FLEET_DB_USER}
+      POSTGRES_PASSWORD: ${FLEET_DB_PASSWORD}
+      POSTGRES_DB: ${FLEET_DB_NAME}
+    ports:
+      - "${FLEET_DB_HOST_PORT:-5432}:5432"
+    volumes:
+      - fleet-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      <<: *postgres-healthcheck
+    networks:
+      - pawaac-net
+
+  # --- Mission Planning datastore: Postgres + PostGIS ------------------------
+  # The postgis image auto-enables the PostGIS extension in POSTGRES_DB on init,
+  # giving Mission Planning native polygon geometry + spatial indexes.
+  postgres-mission:
+    image: postgis/postgis:16-3.4
+    <<: *restart-policy
+    environment:
+      POSTGRES_USER: ${MISSION_DB_USER}
+      POSTGRES_PASSWORD: ${MISSION_DB_PASSWORD}
+      POSTGRES_DB: ${MISSION_DB_NAME}
+    ports:
+      - "${MISSION_DB_HOST_PORT:-5433}:5432"
+    volumes:
+      - mission-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      <<: *postgres-healthcheck
+    networks:
+      - pawaac-net
+
+  # --- Vision AI datastore: Postgres -----------------------------------------
+  postgres-vision:
+    image: postgres:16-alpine
+    <<: *restart-policy
+    environment:
+      POSTGRES_USER: ${VISION_DB_USER}
+      POSTGRES_PASSWORD: ${VISION_DB_PASSWORD}
+      POSTGRES_DB: ${VISION_DB_NAME}
+    ports:
+      - "${VISION_DB_HOST_PORT:-5434}:5432"
+    volumes:
+      - vision-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      <<: *postgres-healthcheck
+    networks:
+      - pawaac-net
+
+  # --- Alert & Notification datastore: Postgres ------------------------------
+  postgres-alert:
+    image: postgres:16-alpine
+    <<: *restart-policy
+    environment:
+      POSTGRES_USER: ${ALERT_DB_USER}
+      POSTGRES_PASSWORD: ${ALERT_DB_PASSWORD}
+      POSTGRES_DB: ${ALERT_DB_NAME}
+    ports:
+      - "${ALERT_DB_HOST_PORT:-5435}:5432"
+    volumes:
+      - alert-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      <<: *postgres-healthcheck
+    networks:
+      - pawaac-net
+
+  # --- Telemetry Ingestion datastore: TimescaleDB ----------------------------
+  timescaledb-telemetry:
+    image: timescale/timescaledb:2.17.2-pg16
+    <<: *restart-policy
+    environment:
+      POSTGRES_USER: ${TELEMETRY_DB_USER}
+      POSTGRES_PASSWORD: ${TELEMETRY_DB_PASSWORD}
+      POSTGRES_DB: ${TELEMETRY_DB_NAME}
+    ports:
+      - "${TELEMETRY_DB_HOST_PORT:-5436}:5432"
+    volumes:
+      - telemetry-tsdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      <<: *postgres-healthcheck
+    networks:
+      - pawaac-net
+
+  # --- Shared Redis: Alert escalation timers/state + Gateway rate-limit counters
+  # Logically partitioned by Redis DB index (ALERT_REDIS_DB vs GATEWAY_REDIS_DB)
+  # so the two consumers never collide on keys.
+  redis:
+    image: redis:7-alpine
+    <<: *restart-policy
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}", "--appendonly", "yes"]
+    ports:
+      - "${REDIS_HOST_PORT:-6379}:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli --no-auth-warning -a \"$${REDIS_PASSWORD}\" ping | grep -q PONG"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    networks:
+      - pawaac-net
+
+  # ==========================================================================
+  # BACKEND SERVICES
+  # ==========================================================================
+
+  # --- Service 1: Fleet Registry (NestJS + Postgres) -------------------------
+  fleet-registry:
+    build:
+      context: .
+      dockerfile: services/fleet-registry/Dockerfile
+    <<: *restart-policy
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: 3001
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      TRACE_HEADER: ${TRACE_HEADER:-X-Trace-Id}
+      DATABASE_URL: postgresql://${FLEET_DB_USER}:${FLEET_DB_PASSWORD}@postgres-fleet:5432/${FLEET_DB_NAME}
+      DB_HOST: postgres-fleet
+      DB_PORT: 5432
+      DB_USER: ${FLEET_DB_USER}
+      DB_PASSWORD: ${FLEET_DB_PASSWORD}
+      DB_NAME: ${FLEET_DB_NAME}
+      ALERT_NOTIFICATION_URL: http://alert-notification:3005
+    ports:
+      - "${FLEET_REGISTRY_PORT:-3001}:3001"
+    depends_on:
+      postgres-fleet:
+        condition: service_healthy
+      alert-notification:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3001/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+    networks:
+      - pawaac-net
+
+  # --- Service 2: Mission Planning (NestJS + Postgres/PostGIS) ----------------
+  mission-planning:
+    build:
+      context: .
+      dockerfile: services/mission-planning/Dockerfile
+    <<: *restart-policy
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: 3002
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      TRACE_HEADER: ${TRACE_HEADER:-X-Trace-Id}
+      DATABASE_URL: postgresql://${MISSION_DB_USER}:${MISSION_DB_PASSWORD}@postgres-mission:5432/${MISSION_DB_NAME}
+      DB_HOST: postgres-mission
+      DB_PORT: 5432
+      DB_USER: ${MISSION_DB_USER}
+      DB_PASSWORD: ${MISSION_DB_PASSWORD}
+      DB_NAME: ${MISSION_DB_NAME}
+    ports:
+      - "${MISSION_PLANNING_PORT:-3002}:3002"
+    depends_on:
+      postgres-mission:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3002/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+    networks:
+      - pawaac-net
+
+  # --- Service 3: Telemetry Ingestion (Node + TimescaleDB) -------------------
+  telemetry-ingestion:
+    build:
+      context: .
+      dockerfile: services/telemetry-ingestion/Dockerfile
+    <<: *restart-policy
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: 3003
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      TRACE_HEADER: ${TRACE_HEADER:-X-Trace-Id}
+      DATABASE_URL: postgresql://${TELEMETRY_DB_USER}:${TELEMETRY_DB_PASSWORD}@timescaledb-telemetry:5432/${TELEMETRY_DB_NAME}
+      DB_HOST: timescaledb-telemetry
+      DB_PORT: 5432
+      DB_USER: ${TELEMETRY_DB_USER}
+      DB_PASSWORD: ${TELEMETRY_DB_PASSWORD}
+      DB_NAME: ${TELEMETRY_DB_NAME}
+      ALERT_NOTIFICATION_URL: http://alert-notification:3005
+      DRONE_AUTH_TOKEN: ${DRONE_AUTH_TOKEN}
+      ALT_DROP_THRESHOLD: ${ALT_DROP_THRESHOLD:-10}
+      BATTERY_DRAIN_THRESHOLD: ${BATTERY_DRAIN_THRESHOLD:-1}
+    ports:
+      - "${TELEMETRY_INGESTION_PORT:-3003}:3003"
+    depends_on:
+      timescaledb-telemetry:
+        condition: service_healthy
+      alert-notification:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3003/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+    networks:
+      - pawaac-net
+
+  # --- Service 4: Vision AI Results (FastAPI + Postgres) ---------------------
+  # Python service: builds from its own directory (excluded from the pnpm toolchain).
+  vision-ai:
+    build:
+      context: ./services/vision-ai
+      dockerfile: Dockerfile
+    <<: *restart-policy
+    environment:
+      ENV: ${NODE_ENV:-production}
+      PORT: 8000
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      TRACE_HEADER: ${TRACE_HEADER:-X-Trace-Id}
+      DATABASE_URL: postgresql+psycopg://${VISION_DB_USER}:${VISION_DB_PASSWORD}@postgres-vision:5432/${VISION_DB_NAME}
+      DB_HOST: postgres-vision
+      DB_PORT: 5432
+      DB_USER: ${VISION_DB_USER}
+      DB_PASSWORD: ${VISION_DB_PASSWORD}
+      DB_NAME: ${VISION_DB_NAME}
+      ALERT_NOTIFICATION_URL: http://alert-notification:3005
+      MISSION_PLANNING_URL: http://mission-planning:3002
+      TRACK_MAX_AGE: ${TRACK_MAX_AGE:-30}
+      MOVE_EPS: ${MOVE_EPS:-2.0}
+    ports:
+      - "${VISION_AI_PORT:-8000}:8000"
+    depends_on:
+      postgres-vision:
+        condition: service_healthy
+      alert-notification:
+        condition: service_healthy
+      mission-planning:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/health').status==200 else 1)"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+    networks:
+      - pawaac-net
+
+  # --- Service 5: Alert & Notification (NestJS + Redis + Postgres) -----------
+  alert-notification:
+    build:
+      context: .
+      dockerfile: services/alert-notification/Dockerfile
+    <<: *restart-policy
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: 3005
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      TRACE_HEADER: ${TRACE_HEADER:-X-Trace-Id}
+      DATABASE_URL: postgresql://${ALERT_DB_USER}:${ALERT_DB_PASSWORD}@postgres-alert:5432/${ALERT_DB_NAME}
+      DB_HOST: postgres-alert
+      DB_PORT: 5432
+      DB_USER: ${ALERT_DB_USER}
+      DB_PASSWORD: ${ALERT_DB_PASSWORD}
+      DB_NAME: ${ALERT_DB_NAME}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      REDIS_DB: ${ALERT_REDIS_DB:-0}
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASSWORD: ${SMTP_PASSWORD}
+      SMTP_FROM: ${SMTP_FROM}
+      SMTP_SECURE: ${SMTP_SECURE:-false}
+      OPENWA_API_URL: ${OPENWA_API_URL}
+      OPENWA_API_KEY: ${OPENWA_API_KEY}
+      OPENWA_SESSION: ${OPENWA_SESSION:-default}
+    ports:
+      - "${ALERT_NOTIFICATION_PORT:-3005}:3005"
+    depends_on:
+      postgres-alert:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3005/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+    networks:
+      - pawaac-net
+
+  # --- Service 6: API Gateway (NestJS, stateless + Redis for rate limits) ----
+  api-gateway:
+    build:
+      context: .
+      dockerfile: services/api-gateway/Dockerfile
+    <<: *restart-policy
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: 3000
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      TRACE_HEADER: ${TRACE_HEADER:-X-Trace-Id}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-1h}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      REDIS_DB: ${GATEWAY_REDIS_DB:-1}
+      FLEET_REGISTRY_URL: http://fleet-registry:3001
+      MISSION_PLANNING_URL: http://mission-planning:3002
+      TELEMETRY_INGESTION_URL: http://telemetry-ingestion:3003
+      VISION_AI_URL: http://vision-ai:8000
+      ALERT_NOTIFICATION_URL: http://alert-notification:3005
+    ports:
+      - "${API_GATEWAY_PORT:-3000}:3000"
+    depends_on:
+      redis:
+        condition: service_healthy
+      fleet-registry:
+        condition: service_healthy
+      mission-planning:
+        condition: service_healthy
+      telemetry-ingestion:
+        condition: service_healthy
+      vision-ai:
+        condition: service_healthy
+      alert-notification:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3000/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+    networks:
+      - pawaac-net
+
+  # --- Service 7: Ops Dashboard (Next.js) ------------------------------------
+  ops-dashboard:
+    build:
+      context: .
+      dockerfile: services/ops-dashboard/Dockerfile
+    <<: *restart-policy
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      PORT: 3006
+      # Server-side calls to the gateway use the in-network service name.
+      API_GATEWAY_URL: http://api-gateway:3000
+      # Browser-side calls use the host-published gateway URL (NEXT_PUBLIC_* is
+      # inlined into the client bundle at build time).
+      NEXT_PUBLIC_API_GATEWAY_URL: ${NEXT_PUBLIC_API_GATEWAY_URL:-http://localhost:3000}
+      NEXT_PUBLIC_WS_URL: ${NEXT_PUBLIC_WS_URL:-ws://localhost:3000}
+    ports:
+      - "${OPS_DASHBOARD_PORT:-3006}:3006"
+    depends_on:
+      api-gateway:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3006/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+    networks:
+      - pawaac-net
+
+# ----------------------------------------------------------------------------
+# Networks & Volumes
+# ----------------------------------------------------------------------------
+networks:
+  pawaac-net:
+    driver: bridge
+
+volumes:
+  fleet-pgdata:
+  mission-pgdata:
+  vision-pgdata:
+  alert-pgdata:
+  telemetry-tsdata:
+  redis-data:
