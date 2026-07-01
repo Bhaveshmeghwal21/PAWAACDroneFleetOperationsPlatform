@@ -270,8 +270,18 @@ export function buildHistorySql(
     `${avgRc} AS avg_rc_signal_strength, ${minRc} AS min_rc_signal_strength ` +
     `FROM ${plan.relation} ` +
     `WHERE drone_id = $3 AND ${t} >= $4::timestamptz AND ${t} <= $5::timestamptz ` +
-    `GROUP BY bucket ` +
-    `ORDER BY bucket ASC ` +
+    // Group/order by the POSITIONAL output column (the coarse `time_bucket(...)`
+    // expression aliased `bucket`), never by name. When reading a continuous
+    // aggregate the source relation already has a physical `bucket` column (its
+    // native 1m/1h granularity), and PostgreSQL resolves an ambiguous
+    // `GROUP BY bucket` to that *input* column rather than the coarse output
+    // alias — which would group by the native buckets and then let `LIMIT`
+    // truncate them, silently dropping samples (breaking SUM(sample_count)
+    // conservation). Positional references always bind to the SELECT-list
+    // expression, so the raw and continuous-aggregate paths re-bucket and
+    // conserve identically.
+    `GROUP BY 1 ` +
+    `ORDER BY 1 ASC ` +
     `LIMIT $6`;
 
   const values: unknown[] = [

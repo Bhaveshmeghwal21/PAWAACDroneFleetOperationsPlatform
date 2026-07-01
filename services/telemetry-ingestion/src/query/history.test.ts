@@ -192,6 +192,36 @@ describe('buildHistorySql — range predicate, origin & limit (Req 10.1/10.2 / P
     expect(text).toContain('FROM telemetry_sample_1m ');
     expect(text).toContain('bucket >= $4::timestamptz AND bucket <= $5::timestamptz');
   });
+
+  it('re-buckets a continuous aggregate by the coarse output expression, not the native bucket column (Req 10.3 / P20 conservation)', () => {
+    // Regression guard: a continuous aggregate relation already exposes a
+    // physical `bucket` column at its native (1m/1h) granularity. Grouping by
+    // the *name* `bucket` would bind to that input column (PostgreSQL resolves
+    // an ambiguous GROUP BY name to the input column), so the coarse
+    // time_bucket(...) re-aggregation would be ignored and LIMIT would drop
+    // rows — losing samples and breaking SUM(sample_count) conservation.
+    // Grouping/ordering must therefore be positional (the coarse output col).
+    const q = validateHistoryQuery({
+      droneId: DRONE_ID,
+      from: '2024-01-01T00:00:00Z',
+      to: '2024-01-01T01:00:00Z',
+      buckets: 30,
+    });
+    const plan = planQuery(q);
+    expect(plan.fromAggregate).toBe(true);
+    const { text } = buildHistorySql(q, plan);
+
+    // Groups by the coarse output expression positionally, never by the
+    // ambiguous `bucket` column name.
+    expect(text).toContain('GROUP BY 1 ');
+    expect(text).toContain('ORDER BY 1 ASC ');
+    expect(text).not.toContain('GROUP BY bucket');
+    expect(text).not.toContain('ORDER BY bucket');
+    // The coarse re-bucket still aliases its output `bucket` for row mapping.
+    expect(text).toContain(
+      'time_bucket(make_interval(secs => $1::double precision), bucket, $2::timestamptz) AS bucket',
+    );
+  });
 });
 
 describe('mapRowToBucket / mapRowsToSeries', () => {
