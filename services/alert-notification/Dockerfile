@@ -28,7 +28,7 @@ RUN pnpm --filter @pawaac/shared-types run build \
   && pnpm --filter @pawaac/alert-notification run build
 
 # Prune dev dependencies for a lean runtime node_modules.
-RUN pnpm --filter @pawaac/alert-notification --prod deploy /app
+RUN pnpm --filter @pawaac/alert-notification --prod deploy --legacy /app
 
 # ---- Stage 2: runtime -----------------------------------------------------
 FROM node:20-alpine AS runtime

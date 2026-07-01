@@ -12,6 +12,9 @@
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "lint": "eslint .",
     "test": "jest --runInBand",
+    "test:unit": "jest --runInBand --testPathIgnorePatterns /node_modules/ '\\.e2e-spec\\.ts$' integration",
+    "test:integration": "jest --runInBand --testPathPattern integration --passWithNoTests",
+    "test:e2e": "jest --runInBand --testPathPattern '\\.e2e-spec\\.ts$' --passWithNoTests",
     "test:watch": "jest --watch"
   },
   "dependencies": {

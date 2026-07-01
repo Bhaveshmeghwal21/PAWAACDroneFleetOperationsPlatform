@@ -13,6 +13,9 @@
     "migration:run": "typeorm-ts-node-commonjs migration:run -d src/data-source.ts",
     "migration:revert": "typeorm-ts-node-commonjs migration:revert -d src/data-source.ts",
     "test": "jest --runInBand",
+    "test:unit": "jest --runInBand --testPathIgnorePatterns /node_modules/ '\\.e2e-spec\\.ts$' integration",
+    "test:integration": "jest --runInBand --testPathPattern integration --passWithNoTests",
+    "test:e2e": "jest --runInBand --testPathPattern '\\.e2e-spec\\.ts$' --passWithNoTests",
     "test:watch": "jest --watch"
   },
   "dependencies": {
